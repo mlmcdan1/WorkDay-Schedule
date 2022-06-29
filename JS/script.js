@@ -1,25 +1,26 @@
 var events = {};
-// display current day using moment
+// shows today's date
 $("#currentDay").text(moment().format("dddd, MMMM Do"));
 
-//This function is to add colors to description of each hour after comaring with current hour
-var hourChecker = function(){
+//check to see if hours is listed
+var hourCheck = function(){
     //get current hour using moment
     var currentHour = moment().hour();
 
-    //loop through every hour in calendar block and add cllases after comparing with current hour
+    //
     $(".time-block").each(function(){
         var timeBlock = parseInt($(this).attr("id")); //get id as id's are given for each hour
-        //for past hour
+        
+        //past hour
         if(timeBlock < currentHour){
             $(this).addClass("past");
         }
-        //for present hour
+        //present hour
         else if (timeBlock===currentHour){
             $(this).removeClass("past");
             $(this).addClass("present");
         }
-        //for future hour
+        //future hour 
         else {
             $(this).removeClass("past");
             $(this).removeClass("present");
@@ -28,7 +29,7 @@ var hourChecker = function(){
     });
 };
 
-//save events in local storage
+//save in local storage
 var loadEvent = function(id,text){
     events = JSON.parse(window.localStorage.getItem("events")) || {}
     $.each(events,function(hour,description){
@@ -45,8 +46,8 @@ var createEvent = function(id, text){
     saveEvent();
 }
 
-//check for hour and color code acordingly
-hourChecker();
+//checks the hour
+hourCheck();
 loadEvent();
 
 //saves text
